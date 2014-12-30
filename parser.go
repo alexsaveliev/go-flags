@@ -32,6 +32,12 @@ type Parser struct {
 	// or an error to indicate a parse failure.
 	UnknownOptionHandler func(option string, arg SplitArgument, args []string) ([]string, error)
 
+	// The InitFuncs are run after parsing but before any commands
+	// are executed. They can be used to initialize global state
+	// after parsing. This slice is initialized by NewNamedParser
+	// and NewParser.
+	InitFuncs []func()
+
 	internalError error
 }
 
@@ -141,6 +147,7 @@ func NewNamedParser(appname string, options Options) *Parser {
 		Command:            newCommand(appname, "", "", nil),
 		Options:            options,
 		NamespaceDelimiter: ".",
+		InitFuncs:          make([]func(), 0),
 	}
 
 	p.Command.parent = p
@@ -266,6 +273,10 @@ func (p *Parser) ParseArgs(args []string) ([]string, error) {
 		}, true)
 
 		s.checkRequired(p)
+	}
+
+	for _, fn := range p.InitFuncs {
+		fn()
 	}
 
 	var reterr error
