@@ -64,6 +64,14 @@ func (c *Command) AddCommand(command string, shortDescription string, longDescri
 	return cmd, nil
 }
 
+// AddExistingCommand adds an existing command (previously created by
+// NewNamedParser, AddCommand, etc.). This lets you "mount" an
+// existing CLI underneath a subcommand of another CLI.
+func (c *Command) AddExistingCommand(cmd *Command) {
+	cmd.parent = c
+	c.commands = append(c.commands, cmd)
+}
+
 // AddGroup adds a new group to the command with the given name and data. The
 // data needs to be a pointer to a struct from which the fields indicate which
 // options are in the group.
