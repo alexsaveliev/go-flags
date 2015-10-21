@@ -76,30 +76,32 @@ func TestHelp(t *testing.T) {
   TestHelp [OPTIONS] [filename] [num] <command>
 
 Application Options:
-  /v, /verbose                         Show verbose debug information
-  /c:                                  Call phone number
-      /ptrslice:                       A slice of pointers to string
-      /empty-description
-      /default:                        Test default value ("Some\nvalue")
-      /default-array:                  Test default array value (Some value, "Other\tvalue")
-      /default-map:                    Testdefault map value (some:value, another:value)
-      /env-default1:                   Test env-default1 value (Some value) [%ENV_DEFAULT%]
-      /env-default2:                   Test env-default2 value [%ENV_DEFAULT%]
-      /opt-with-arg-name:something     Option with named argument
+  -v, --verbose                        Show verbose debug information
+  -c=                                  Call phone number
+      --ptrslice=                      A slice of pointers to string
+      --empty-description
+      --default=                       Test default value ("Some\nvalue")
+      --default-array=                 Test default array value (Some value,
+                                       "Other\tvalue")
+      --default-map=                   Testdefault map value (some:value,
+                                       another:value)
+      --env-default1=                  Test env-default1 value (Some value)
+                                       [%ENV_DEFAULT%]
+      --env-default2=                  Test env-default2 value [%ENV_DEFAULT%]
+      --opt-with-arg-name=something    Option with named argument
 
 Other Options:
-  /s:                                  A slice of strings (some, value)
-      /intmap:                         A map from string to int (a:1)
+  -s=                                  A slice of strings (some, value)
+      --intmap=                        A map from string to int (a:1)
 
 Subgroup:
-      /sip.opt:                        This is a subgroup option
+      --sip.opt=                       This is a subgroup option
 
 Subsubgroup:
-      /sip.sap.opt:                    This is a subsubgroup option
+      --sip.sap.opt=                   This is a subsubgroup option
 
 Help Options:
-  /?                                   Show this help message
-  /h, /help                            Show this help message
+  -h, --help                           Show this help message
 
 Arguments:
   filename:                            A filename
@@ -275,8 +277,7 @@ func TestHelpCommand(t *testing.T) {
   TestHelpCommand [OPTIONS] command
 
 Help Options:
-  /?              Show this help message
-  /h, /help       Show this help message
+  -h, --help      Show this help message
 `
 		} else {
 			expected = `Usage:
